@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green_light"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#3FC380"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Add Video"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Done"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:layout_alignParentTop="true" />
+
+        <ImageButton
+            android:id="@+id/btnBackToMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnCaptureVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="46dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/video_button"
+        android:text="Capture"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@drawable/capture" />
+
+    <Button
+        android:id="@+id/btnChooseVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnCaptureVideo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="27dp"
+        android:text="Choose file"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/video_button"
+        android:drawableLeft="@drawable/choose_file" />
+
+    <VideoView
+        android:id="@+id/vdvVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnChooseVideo"
+        android:layout_below="@+id/RelativeLayout2"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        android:layout_marginRight="10dp" />
+
+</RelativeLayout>

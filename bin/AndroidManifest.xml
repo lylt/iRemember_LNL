@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.iremember"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <supports-screens android:compatibleWidthLimitDp="320" />
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".FirstScreen"
+            android:label="IRemember" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddVideoActivity"
+            android:label="@string/title_activity_add_video" >
+        </activity>
+        <activity
+            android:name=".AddAudioActivity"
+            android:label="@string/title_activity_add_audio" >
+        </activity>
+        <activity
+            android:name=".RecordAudioActivity"
+            android:label="@string/title_activity_record_audio" >
+        </activity>
+        <activity
+            android:name=".DisplaySelectedItem"
+            android:label="@string/title_activity_display_selected_item" >
+        </activity>
+        <activity
+            android:name=".AddImageActivity"
+            android:label="@string/title_activity_add_image" >
+        </activity>
+        <activity
+            android:name=".Activity_Location"
+            android:label="@string/title_activity_activity__location" >
+        </activity>
+    </application>
+
+</manifest>

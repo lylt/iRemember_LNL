@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iRemember</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_video">AddVideoActivity</string>
+    <string name="title_activity_add_audio">AddAudioActivity</string>
+    <string name="title_activity_record_audio">RecordAudioActivity</string>
+    <string name="title_activity_display_selected_item">DisplaySelectedItem</string>
+    <string name="title_activity_add_image">AddImageActivity</string>
+    <string name="title_activity_activity__location">Activity_Location</string>
+
+</resources>

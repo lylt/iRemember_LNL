@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/orange_light"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#F5AB35"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/addnew" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="List"
+            android:textSize="35dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edtFilter"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/LinearLayout1"
+        android:layout_alignRight="@+id/listview"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/editbox2"
+        android:drawableLeft="@drawable/search"
+        android:hint="Filter"
+        android:layout_marginTop="20dp"
+        android:padding="5dip"
+        android:singleLine="true"
+        android:textColor="#999999"
+        android:textSize="14dip" >
+
+        <requestFocus />
+    </EditText>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="342dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/edtFilter"
+        android:layout_margin="10dp"
+        android:layout_weight="0.32"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="9.0sp"
+        android:drawSelectorOnTop="true"
+        android:smoothScrollbar="true"
+        android:soundEffectsEnabled="true" >
+    </ListView>
+
+</RelativeLayout>
