@@ -113,8 +113,8 @@ public void playAudio(){
 public void displayVideo(){
 	int width = getWindowManager().getDefaultDisplay().getWidth();
 	int height = getWindowManager().getDefaultDisplay().getHeight();
-	vdvVideo.getLayoutParams().width = width;
-	vdvVideo.getLayoutParams().height = height;
+	vdvVideo.getLayoutParams().width = width-10;
+	vdvVideo.getLayoutParams().height = height-10;
 	vdvVideo.setOnTouchListener(new OnTouchListener() {
 
 		@Override
@@ -136,7 +136,9 @@ public void displayVideo(){
 }
 //load and display photo
 public void displayImage(){
-	Bitmap bit = BitmapFactory.decodeFile(imagePath);
+	BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inSampleSize = 4;
+	Bitmap bit = BitmapFactory.decodeFile(imagePath,options);
 	imageImage.setImageBitmap(bit);
 }
 	@Override

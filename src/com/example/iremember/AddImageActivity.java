@@ -33,19 +33,22 @@ import android.widget.Toast;
 public class AddImageActivity extends Activity {
 
 	ImageView image;
-	ImageButton btnChooseImage,btnTakePicture,btnBack;
+	ImageButton btnChooseImage, btnTakePicture, btnBack;
 	Button btnSave;
 	static final int REQUEST_IMAGE_CAPTURE = 200;
 	private static final int RESULT_LOAD_IMAGE = 100;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	String path;
 	static File mediaFile;
+	String mPath;
+	static boolean isChoose = true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.addimage);
 		initComponent();
 		setBtnTakePicture();
@@ -53,13 +56,13 @@ public class AddImageActivity extends Activity {
 		setBtnSave();
 		setBtnBack();
 	}
-	
+
 	private void setBtnTakePicture() {
 		btnTakePicture.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				takePicture();
 			}
 		});
@@ -77,12 +80,17 @@ public class AddImageActivity extends Activity {
 
 	private void setBtnSave() {
 		btnSave.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_click));
-				Intent main= new Intent();
-				main.putExtra(MainActivity.IMAGE_KEY, path);
+				v.startAnimation(AnimationUtils.loadAnimation(
+						getApplicationContext(), R.anim.anim_click));
+				Intent main = new Intent();
+				if(isChoose){
+					main.putExtra(MainActivity.IMAGE_KEY, path);
+				}else {
+					main.putExtra(MainActivity.IMAGE_KEY, mPath);
+				}
 				setResult(Activity.RESULT_OK, main);
 				finish();
 			}
@@ -90,28 +98,34 @@ public class AddImageActivity extends Activity {
 	}
 
 	private void initComponent() {
-		btnBack=(ImageButton) findViewById(R.id.btnBACK);
+		btnBack = (ImageButton) findViewById(R.id.btnBACK);
 		image = (ImageView) findViewById(R.id.imgImage);
 		btnChooseImage = (ImageButton) findViewById(R.id.btnChooseImage);
 		btnTakePicture = (ImageButton) findViewById(R.id.btnTakePicture);
-		btnSave= (Button) findViewById(R.id.btnBack);
+		btnSave = (Button) findViewById(R.id.btnBack);
 	}
-private void setBtnBack(){
-	btnBack.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_click));
-			Intent mIntent=new Intent(getApplicationContext(),MainActivity.class);
-			finish();
-		}
-	});
-}
+
+	private void setBtnBack() {
+		btnBack.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				v.startAnimation(AnimationUtils.loadAnimation(
+						getApplicationContext(), R.anim.anim_click));
+				Intent mIntent = new Intent(getApplicationContext(),
+						MainActivity.class);
+				finish();
+			}
+		});
+	}
+
 	// using camera to take a picture
 	public void takePicture() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT,getOutputImageFile(MEDIA_TYPE_IMAGE));
-		path=getOutputImageFile(MEDIA_TYPE_IMAGE).getAbsolutePath();
+		Uri outputFileUri = Uri.fromFile( getOutputImageFile(MEDIA_TYPE_IMAGE) );
+		intent.putExtra(MediaStore.EXTRA_OUTPUT,outputFileUri);
+		path = getOutputImageFile(MEDIA_TYPE_IMAGE).getAbsolutePath();
+		mPath = outputFileUri.getPath();
 		startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 	}
 
@@ -125,10 +139,12 @@ private void setBtnBack(){
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-			Bitmap imageBitmap = (Bitmap) extras.get("data");
-			
-			image.setImageBitmap(imageBitmap);
+			BitmapFactory.Options options = new BitmapFactory.Options();
+		    options.inSampleSize = 4;
+		    	
+		    Bitmap bitmap = BitmapFactory.decodeFile( mPath, options );
+		    image.setImageBitmap(bitmap);
+
 		}
 
 		else if (requestCode == RESULT_LOAD_IMAGE) {
@@ -143,7 +159,7 @@ private void setBtnBack(){
 				// Link to the image
 				String photoPath = cursor.getString(0);
 				cursor.close();
-				path=photoPath;
+				path = photoPath;
 				Bitmap bit = BitmapFactory.decodeFile(photoPath);
 				image.setImageBitmap(bit);
 				Toast.makeText(this, "OKe", Toast.LENGTH_SHORT).show();
@@ -165,23 +181,26 @@ private void setBtnBack(){
 
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
 				Locale.getDefault()).format(new Date());
-		String videoName=timeStamp + "_";
-		File mediaFileDir= new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/IRemember3/Picture/");
-	
+		String videoName = "JPEG_" + timeStamp ;
+		File mediaFileDir = new File(Environment.getExternalStorageDirectory() + "/IRemember3/Picture/");
+
 		if (type == MEDIA_TYPE_IMAGE) {
-			 try {
-			 mediaFile = File.createTempFile(videoName,".png",mediaFileDir);
+			try {
+				mediaFile = File
+						.createTempFile(videoName, ".jpg", mediaFileDir);
+				isChoose = false;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//mediaFile = new File(mediaStorageDir.getPath());
+			// mediaFile = new File(mediaStorageDir.getPath());
 		} else {
 			return null;
 		}
 		return mediaFile;
 
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

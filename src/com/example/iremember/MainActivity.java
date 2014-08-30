@@ -69,8 +69,11 @@ public class MainActivity extends Activity {
 		addAudio();
 		addPhoto();
 		getLocation();
-		CreateNew();
-		update();
+		Intent i = getIntent();
+		final int id = i.getIntExtra("id", -1);
+		if(id!=-1){
+			update(id);
+		}else CreateNew();
 		back();
 	}
 // create folder contains files
@@ -144,39 +147,46 @@ public class MainActivity extends Activity {
 		tvTime.setText(time);
 	}
 //update 
-	public void update() {
+	public void update(int id) {
 		Intent i = getIntent();
-		final int id = i.getIntExtra("id", -1);
-		if (id != -1) {
+			btnCreate.setText("Update");
 			data = i.getStringArrayExtra("data");
 			tvTime.setText(data[2]);
 			edtTittle.setText(data[0]);
 			edtBody.setText(data[1]);
-
+			final int updateId=id;
 			btnCreate.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					//v.startAnimation(AnimationUtils.loadAnimation(
 					//		getApplicationContext(), R.anim.anim_click));
-					String audioPath, videoPath, imagePath, tittle, body;
-					audioPath = data[3];
-					videoPath = data[4];
-					imagePath = data[5];
+					String uaudioPath, uvideoPath, uimagePath, utittle, ubody;
+					uaudioPath = data[3];
+					uvideoPath = data[4];
+					uimagePath = data[5];
 					Intent i = getIntent();
-					audioPath = i.getStringExtra("audioPath");
-					tittle = edtTittle.getText().toString();
-					body = edtBody.getText().toString();
-					String time = tvTime.getText().toString();
-					String location = "Latitude: " + latitude + " longitude: "
+					if(audioPath!=null){
+						uaudioPath=audioPath;
+					}
+					if(videoPath!=null){
+						uvideoPath=videoPath;
+					}
+					if(imagePath!=null){
+						uimagePath=imagePath;
+					}
+					utittle = edtTittle.getText().toString();
+					ubody = edtBody.getText().toString();
+					String utime = tvTime.getText().toString();
+					String ulocation = "Latitude: " + latitude + " longitude: "
 							+ longitude;
-					if (!tittle.equals("")) {
-						Record r = new Record(tittle, body, time, audioPath,
-								videoPath, imagePath, location);
-						dataHelper.UPDATE_Record(r, id);
+					if (!utittle.equals("")) {
+						Record r = new Record(utittle,ubody, utime, uaudioPath,
+								uvideoPath, uimagePath, ulocation);
+						dataHelper.UPDATE_Record(r, updateId);
 						dataHelper.close();
 						Toast.makeText(MainActivity.this,
-								"created successfuly", 30000).show();
+								"updated successfuly", 30000).show();
 						Intent mIntent = new Intent(getApplicationContext(),
 								FirstScreen.class);
 						startActivity(mIntent);
@@ -200,7 +210,7 @@ public class MainActivity extends Activity {
 
 				}
 			});
-		}
+		
 	}
 // create new record
 	public void CreateNew() {
@@ -212,7 +222,6 @@ public class MainActivity extends Activity {
 						getApplicationContext(), R.anim.anim_click));
 				String tittle = "";
 				String body = "";
-				Intent i = getIntent();
 				tittle = edtTittle.getText().toString();
 				body = edtBody.getText().toString();
 				String time = tvTime.getText().toString();
